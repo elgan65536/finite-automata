@@ -6,7 +6,8 @@ use crate::dfa::DFA;
 
 pub fn dfa_interpreter(args: Vec<String>) -> i32 {
     if args.len() < 2 {
-        return 1;
+        help();
+        return 0;
     }
     match args[1].as_str() {
         "eval" | "evaluate" => {
@@ -134,8 +135,19 @@ pub fn dfa_interpreter(args: Vec<String>) -> i32 {
 
         _ => {
             println!("unrecognized command {}", args[1]);
-            return 1;
+            help();
         }
     }
     0
+}
+
+fn help() {
+    println!("to evaluate a string in an automaton:");
+    println!("evaluate <dfa> <string> [string] ...");
+    println!("");
+    println!("to create a new automaton from existing files:");
+    println!("negate <outfilename> <dfa>");
+    println!("intersect <outfilename> <dfa1> <dfa2> [dfa3] ...");
+    println!("union <outfilename> <dfa1> <dfa2> [dfa3] ...");
+    println!("difference <outfilename> <dfa1> <dfa2>");
 }

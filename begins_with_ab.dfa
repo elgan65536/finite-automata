@@ -1,0 +1,7 @@
+4 %states
+2 %accepting states
+a,b %alphabet
+1,3 %0: starting state
+3,2 %1: strings beginning with a
+2,2 %2: strings beginning with ab
+3,3 %3: strings not beginning with ab
