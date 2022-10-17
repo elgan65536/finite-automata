@@ -133,6 +133,8 @@ pub fn dfa_interpreter(args: Vec<String>) -> i32 {
             };
         }
 
+        "gen" | "generate" => _gen_help(),
+
         _ => {
             println!("unrecognized command {}", args[1]);
             help();
@@ -150,4 +152,21 @@ fn help() {
     println!("intersect <outfilename> <dfa1> <dfa2> [dfa3] ...");
     println!("union <outfilename> <dfa1> <dfa2> [dfa3] ...");
     println!("difference <outfilename> <dfa1> <dfa2>");
+    println!("");
+    println!("to generate an automaton from presets:");
+    println!("gen <preset> <args...>");
+    println!("use 'gen help' to see list of presets.");
+}
+
+fn _gen_help() {
+    println!("for all generators, alph is the alphabet with all charactersseparated by commas (no spaces),");
+    println!("s is a string of characters in alph, chars is a subset of alph, and x and y are integers.");
+    println!("empty language: gen empty <alph>");
+    println!("strings with number of chars equal to i: gen less_than <alph> <chars> <i>");
+    println!("strings with number of chars less than or equal to i: gen less_or_equal <alph> <chars> <i>");
+    println!("strings with number of chars congruent to i modulo j: gen mod <alph> <chars> <i> <j>");
+    println!("only one string: gen only <alph> <string>");
+    println!("begins with a certain substring: gen begins <alph> <string>");
+    println!("ends with a certain substring: gen ends <alph> <string>");
+    println!("contains a certain substring: gen contains <alph> <string>");
 }

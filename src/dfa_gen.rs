@@ -130,7 +130,7 @@ pub fn only_string(alph: &[char], string: &str) -> Result<DFA, ()> {
     Ok(result)
 }
 
-pub fn starts_with(alph: &[char], string: &str) -> Result<DFA, ()> {
+pub fn begins_with(alph: &[char], string: &str) -> Result<DFA, ()> {
     for char in string.chars() {
         if !alph.contains(&char) {
             return Err(());
