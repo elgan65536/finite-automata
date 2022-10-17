@@ -234,7 +234,15 @@ impl DFA {
     }
 
     pub fn union(&self, rhs: &Self) -> Self {
-        self.negation().intersect(&rhs.negation()).negation()
+        let mut lhs_clone = self.clone();
+        let mut rhs_clone = rhs.clone();
+        for &char in &self.alphabet {
+            rhs_clone = rhs_clone.add_char_accept(char, false)
+        }
+        for &char in &rhs.alphabet {
+            lhs_clone = lhs_clone.add_char_accept(char, false)
+        }
+        lhs_clone.negation().intersect(&rhs_clone.negation()).negation()
     }
 
     pub fn difference(&self, rhs: &Self) -> Self {
@@ -250,9 +258,7 @@ impl DFA {
     }
 
     pub fn big_union(dfas: &[DFA]) -> Self {
-        dfas.iter()
-            .fold(DFA::new(), |old, new| old.intersect(&new.negation()))
-            .negation()
+        dfas.iter().fold(DFA::new(), |old, new| old.union(&new))
     }
 
     pub fn remove_state(&self, state: i32, mut replacement: i32) -> Result<Self, ()> {
